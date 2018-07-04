@@ -125,7 +125,9 @@ contains
 
         class(EFTCAMB_Extended_Galileon)  :: self   !< the base class
         type(TIniFile)                 :: Ini    !< Input ini file
-
+        self%S                = Ini_Read_Double_File( Ini, 'S', 0._dl )
+        self%ExtendedGalileon_q = Ini_Read_Double_File( Ini, 'ExtendedGalileon_q', 0._dl )
+	
     end subroutine EFTCAMBExtendedGalileonInitModelParametersFromFile
 
     ! ---------------------------------------------------------------------------------------------
