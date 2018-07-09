@@ -378,7 +378,7 @@ contains
         if(a*eft_cache%adotoa==0._dl) return
 
         ! compute the second order EFT functions:
-        eft_cache%EFTGamma1V  = self%S/12*a**(2*self%ExtendedGalileon_B*(1/self%ExtendedGalileon_q+2)-1)*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q&
+        eft_cache%EFTGamma1V  = self%S/12*a**(2*self%ExtendedGalileon_B*(1/self%ExtendedGalileon_q+2))*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q&
                 &+1)/self%ExtendedGalileon_q)*eft_cache%adotoa**(-2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q+1)/self%ExtendedGalileon_q-2*self%ExtendedGalileon_q-3)*(6**(&
                 &1/self%S)*Omega_phi0**(1/self%S))**(2*self%S)*(a**(4*self%ExtendedGalileon_q+1)*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_q+1)*6**(1/self%S)*Omega_phi0**(&
                 &1/self%S)*(eft_cache%adotoa**2*(2*self%ExtendedGalileon_q*(3*self%ExtendedGalileon_B+3*self%ExtendedGalileon_q-2)+1)-(self%ExtendedGalileon_q+1)*eft_cache%Hdot)&
@@ -396,12 +396,12 @@ contains
                 &*eft_cache%adotoa**2-(self%ExtendedGalileon_q+1)*eft_cache%Hdot))
 
         eft_cache%EFTGamma2V  = self%ExtendedGalileon_B*(-2**(1/self%S+2))*3**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_B)&
-                &*(a*eft_par_cache%h0_Mpc/eft_cache%adotoa)**((2*(self%ExtendedGalileon_q+1)*(self%ExtendedGalileon_B+self%ExtendedGalileon_q))/self%ExtendedGalileon_q)*Omega_phi0**(self%S+2)
+                &*(a*eft_par_cache%h0_Mpc/eft_cache%adotoa)**((2*(self%ExtendedGalileon_q+1)*(self%ExtendedGalileon_B+self%ExtendedGalileon_q))/self%ExtendedGalileon_q)*Omega_phi0**(1/self%S+2)
 
         eft_cache%EFTGamma2P  = 2/3*self%S*(self%ExtendedGalileon_B+self%ExtendedGalileon_q)*a**(4*self%ExtendedGalileon_B+2*self%S+4*self%ExtendedGalileon_q+1)*eft_par_cache%h0_Mpc**((&
                 &2*(self%ExtendedGalileon_q+1)*(self%ExtendedGalileon_B+self%ExtendedGalileon_q))/self%ExtendedGalileon_q)*eft_cache%adotoa**(-2*(self%ExtendedGalileon_B&
                 &+self%S+self%ExtendedGalileon_q+2))*(6**(1/self%S)*Omega_phi0**(1/self%S))**(2*self%S+1)*((2*self%ExtendedGalileon_q+1)*eft_cache%adotoa**2-(self%ExtendedGalileon_q+1)*eft_cache%Hdot)
-
+		
         eft_cache%EFTGamma3V  = 0._dl
         eft_cache%EFTGamma3P  = 0._dl
         eft_cache%EFTGamma4V  = 0._dl
