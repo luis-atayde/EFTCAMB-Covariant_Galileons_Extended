@@ -320,43 +320,30 @@ contains
         eft_cache%EFTOmegaP    = 0._dl
         eft_cache%EFTOmegaPP   = 0._dl
         eft_cache%EFTOmegaPPP  = 0._dl
-        eft_cache%EFTc         = 6*a2*self%ExtendedGalileon_B*(Omega_phi0)**2*eft_par_cache%h0_Mpc**(2*(self%ExtendedGalileon_B+self%S+1))*eft_cache%adotoa**((&
-                  &-2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q+1))/self%ExtendedGalileon_q)*((eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_q+1)*6**(&
-                  &self%ExtendedGalileon_q/self%ExtendedGalileon_B)*eft_cache%adotoa**(-2*self%ExtendedGalileon_q-3)*a**(4*self%ExtendedGalileon_B+2*&
-                  &self%ExtendedGalileon_B/self%ExtendedGalileon_q+4*self%ExtendedGalileon_q+1)*Omega_phi0**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)&
-                  &*(a*(2*self%ExtendedGalileon_q+1)*eft_cache%adotoa*eft_cache%Hdot+(self%ExtendedGalileon_q-1)*eft_cache%Hdot**2-self%ExtendedGalileon_q*eft_cache%Hdot))&
-                  &/self%ExtendedGalileon_q-3*a**(2*self%ExtendedGalileon_B*(1/self%ExtendedGalileon_q+2)))
+        eft_cache%EFTc         = -(a**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)*self%ExtendedGalileon_B&
+	&*eft_cache%adotoa**(-2 - self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*eft_par_cache%h0_Mpc**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*Omega_phi0*(eft_cache%adotoa**2 - eft_cache%Hdot))/(2.*self%ExtendedGalileon_q)
 
-        eft_cache%EFTLambda    = 6*a2*(Omega_phi0)**2*eft_par_cache%h0_Mpc**(2*(self%ExtendedGalileon_B+self%S+1))*eft_cache%adotoa**((-2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q+1))&
-                  &/self%ExtendedGalileon_q)*(-(self%ExtendedGalileon_B*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_q+1)*2**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)&
-                  &/self%ExtendedGalileon_B)*3**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*eft_cache%adotoa**(-2*self%ExtendedGalileon_q-3)*a**(4*self%ExtendedGalileon_B+2&
-                  &*self%S+4*self%ExtendedGalileon_q+1)*Omega_phi0**(1/self%S)*((2*self%ExtendedGalileon_q+1)*eft_cache%adotoa**2-(self%ExtendedGalileon_q+1)*eft_cache%Hdot))/&
-                  &self%ExtendedGalileon_q-3*a**(2*self%ExtendedGalileon_B*(1/self%ExtendedGalileon_q+2)))
 
-       eft_cache%EFTcdot      =(6*self%ExtendedGalileon_B)/self%ExtendedGalileon_q**2*Omega_phi0**2*a**(2*self%ExtendedGalileon_B*(1/self%ExtendedGalileon_q+2)+2)*eft_par_cache%h0_Mpc**(&
-                  &2*(self%ExtendedGalileon_B+self%ExtendedGalileon_B/self%ExtendedGalileon_q+1))*eft_cache%adotoa**(-2*(self%ExtendedGalileon_B+self%S+self%ExtendedGalileon_q+2))*(a**(&
-                  &4*self%ExtendedGalileon_q+1)*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_q+1)*6**(1/self%S)*Omega_phi0**(1/self%S)*(self%ExtendedGalileon_q*(self%ExtendedGalileon_q+1)&
-                  &*eft_cache%adotoa*eft_cache%Hdotdot+2*eft_cache%adotoa**2*(2*self%ExtendedGalileon_B+self%ExtendedGalileon_q*(3*self%ExtendedGalileon_B+self%ExtendedGalileon_q*(&
-                  &self%ExtendedGalileon_B+self%ExtendedGalileon_q+3)+1))*eft_cache%Hdot+(self%ExtendedGalileon_q-1)*eft_cache%adotoa**4*(2*self%ExtendedGalileon_B+4*self%ExtendedGalileon_q**2&
-                  &+4*self%ExtendedGalileon_B*self%ExtendedGalileon_q+self%ExtendedGalileon_q)-(self%ExtendedGalileon_q+1)*(2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q+1)&
-                  &+self%ExtendedGalileon_q*(2*self%ExtendedGalileon_q+3))*eft_cache%Hdot**2)-6*self%ExtendedGalileon_B*self%ExtendedGalileon_q*eft_cache%adotoa**(2*self%ExtendedGalileon_q+3)*((&
-                  &2*self%ExtendedGalileon_q+1)*eft_cache%adotoa**2-(self%ExtendedGalileon_q+1)*eft_cache%Hdot))
+        eft_cache%EFTLambda    = -((a**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*eft_cache%adotoa**(-2 - self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*eft_par_cache%h0_Mpc**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)*Omega_phi0*((3*self%ExtendedGalileon_q + self%ExtendedGalileon_B)&
+	&*eft_cache%adotoa**2 - self%ExtendedGalileon_B*eft_cache%Hdot))/self%ExtendedGalileon_q)
 
-       eft_cache%EFTLambdadot = ((6**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*a**(1 + 4*self%ExtendedGalileon_q +4*self%ExtendedGalileon_B + (2*self%ExtendedGalileon_B)/&
-                  &self%ExtendedGalileon_q)*(3 + 2*self%ExtendedGalileon_q)*self%ExtendedGalileon_B*eft_par_cache%h0_Mpc**(1 + 2*self%ExtendedGalileon_q)*Omega_phi0**(&
-                  &self%ExtendedGalileon_q/self%ExtendedGalileon_B)*eft_cache%Hdot*((-1 - 2*self%ExtendedGalileon_q)*eft_cache%adotoa**2 + (1 + self%ExtendedGalileon_q)*&
-                  &eft_cache%Hdot))/(self%ExtendedGalileon_q*eft_cache%adotoa**(2*self%ExtendedGalileon_q))) - eft_cache%adotoa**5*(-3*a**(2*(2 + 1/self%ExtendedGalileon_q)*self%ExtendedGalileon_B) &
-                  &- (2**((self%ExtendedGalileon_q + self%ExtendedGalileon_B)/self%ExtendedGalileon_B)*3**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*a**(1 + 4*self%ExtendedGalileon_q &
-                  &+ 4*self%ExtendedGalileon_B + (2*self%ExtendedGalileon_B)/self%ExtendedGalileon_q)*self%ExtendedGalileon_B*eft_cache%adotoa**(-3 - 2*self%ExtendedGalileon_q)*eft_par_cache%h0_Mpc**(1 &
-                  &+ 2*self%ExtendedGalileon_q)*Omega_phi0**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*((1 + 2*self%ExtendedGalileon_q)*eft_cache%adotoa**2 - (1 + self%ExtendedGalileon_q)*eft_cache%Hdot))&
-                  &/self%ExtendedGalileon_q) - ((1 + self%ExtendedGalileon_q)*self%ExtendedGalileon_B*eft_cache%adotoa**3*eft_cache%Hdot*(-3*a**(2*(2 + 1/self%ExtendedGalileon_q)*self%ExtendedGalileon_B) &
-                  &- (2**((self%ExtendedGalileon_q +self%ExtendedGalileon_B)/self%ExtendedGalileon_B)*3**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*a**(1 + 4*self%ExtendedGalileon_q + 4*self%ExtendedGalileon_B &
-                  &+ (2*self%ExtendedGalileon_B)/self%ExtendedGalileon_q)*self%ExtendedGalileon_B*eft_cache%adotoa**(-3 - 2*self%ExtendedGalileon_q)*eft_par_cache%h0_Mpc**(1 + 2*self%ExtendedGalileon_q)&
-                  &*Omega_phi0**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*((1 + 2*self%ExtendedGalileon_q)*eft_cache%adotoa**2 - (1 +self%ExtendedGalileon_q)*eft_cache%Hdot))/self%ExtendedGalileon_q))&
-                  &/self%ExtendedGalileon_q - (6**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*a**(1 + 4*self%ExtendedGalileon_q + 4*self%ExtendedGalileon_B + (2*self%ExtendedGalileon_B)/self%ExtendedGalileon_q)&
-                  &*self%ExtendedGalileon_B*eft_cache%adotoa**(1 - 2*self%ExtendedGalileon_q)*eft_par_cache%h0_Mpc**(1 + 2*self%ExtendedGalileon_q)*Omega_phi0**(self%ExtendedGalileon_q/self%ExtendedGalileon_B)*(2*(1 &
-                  &+2*self%ExtendedGalileon_q)*eft_cache%adotoa*eft_cache%Hdot - (1 + self%ExtendedGalileon_q)*eft_cache%Hdotdot))/self%ExtendedGalileon_q
+       eft_cache%EFTcdot      =-(a**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)*self%ExtendedGalileon_B&
+	&*eft_cache%adotoa**(-3 - self%ExtendedGalileon_B/self%ExtendedGalileon_q)*eft_par_cache%h0_Mpc**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*Omega_phi0*(self%ExtendedGalileon_B*eft_cache%adotoa**4 - 2*self%ExtendedGalileon_B&
+	&*eft_cache%adotoa**2*eft_cache%Hdot + (2*self%ExtendedGalileon_q + self%ExtendedGalileon_B)*eft_cache%Hdot**2 - self%ExtendedGalileon_q&
+	&*eft_cache%adotoa*eft_cache%Hdotdot))/(2.*self%ExtendedGalileon_q**2)
 
+       eft_cache%EFTLambdadot = -((a**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*self%ExtendedGalileon_B*eft_cache%adotoa**(-3 - self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*eft_par_cache%h0_Mpc**(2 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)*Omega_phi0&
+	&*((3*self%ExtendedGalileon_q + self%ExtendedGalileon_B)*eft_cache%adotoa**4 - (3*self%ExtendedGalileon_q + 2*self%ExtendedGalileon_B)*eft_cache%adotoa**2&
+	&*eft_cache%Hdot + (2*self%ExtendedGalileon_q + self%ExtendedGalileon_B)*eft_cache%Hdot**2 - self%ExtendedGalileon_q*eft_cache%adotoa&
+	&*eft_cache%Hdotdot))/self%ExtendedGalileon_q**2)
+	
     end subroutine EFTCAMBExtendedGalileonBackgroundEFTFunctions
 
     ! ---------------------------------------------------------------------------------------------
@@ -378,29 +365,24 @@ contains
         if(a*eft_cache%adotoa==0._dl) return
 
         ! compute the second order EFT functions:
-        eft_cache%EFTGamma1V  = self%S/12*a**(2*self%ExtendedGalileon_B*(1/self%ExtendedGalileon_q+2))*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q&
-                &+1)/self%ExtendedGalileon_q)*eft_cache%adotoa**(-2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q+1)/self%ExtendedGalileon_q-2*self%ExtendedGalileon_q-3)*(6**(&
-                &1/self%S)*Omega_phi0**(1/self%S))**(2*self%S)*(a**(4*self%ExtendedGalileon_q+1)*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_q+1)*6**(1/self%S)*Omega_phi0**(&
-                &1/self%S)*(eft_cache%adotoa**2*(2*self%ExtendedGalileon_q*(3*self%ExtendedGalileon_B+3*self%ExtendedGalileon_q-2)+1)-(self%ExtendedGalileon_q+1)*eft_cache%Hdot)&
-                &-6*(self%ExtendedGalileon_B-1)*self%ExtendedGalileon_q*eft_cache%adotoa**(2*self%ExtendedGalileon_q+3))
+        eft_cache%EFTGamma1V  = (a**(self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*self%ExtendedGalileon_B*eft_cache%adotoa**(-2 - self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*eft_par_cache%h0_Mpc**(self%ExtendedGalileon_B/self%ExtendedGalileon_q)*Omega_phi0&
+	&*((1 + 12*self%ExtendedGalileon_q**2)*eft_cache%adotoa**2 - eft_cache%Hdot))/(4.*self%ExtendedGalileon_q)
 
-        eft_cache%EFTGamma1P  = Omega_phi0**2*self%S*3/self%ExtendedGalileon_q*a**(2*self%ExtendedGalileon_B*(1/self%ExtendedGalileon_q+2)-1)*eft_par_cache%h0_Mpc**(&
-                &2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q+1)/self%ExtendedGalileon_q)*eft_cache%adotoa**(-2*(self%ExtendedGalileon_B+self%ExtendedGalileon_q)&
-                &*(self%ExtendedGalileon_q+1)/self%ExtendedGalileon_q-3)*(a**(4*self%ExtendedGalileon_q+1)*eft_par_cache%h0_Mpc**(2*self%ExtendedGalileon_q+1)*6**(1/self%S)&
-                &*Omega_phi0**(1/self%S)*(-self%ExtendedGalileon_q*(self%ExtendedGalileon_q+1)*eft_cache%adotoa*eft_cache%Hdotdot-eft_cache%adotoa**2*(4*self%ExtendedGalileon_B&
-                &+self%ExtendedGalileon_q*(12*self%ExtendedGalileon_B**2*(self%ExtendedGalileon_q+1)+2*self%ExtendedGalileon_B*self%ExtendedGalileon_q*(12*self%ExtendedGalileon_q+7)&
-                &+self%ExtendedGalileon_q*(2*self%ExtendedGalileon_q*(6*self%ExtendedGalileon_q+1)+3)+2))*eft_cache%Hdot+eft_cache%adotoa**4*(2*self%ExtendedGalileon_B+4*self%ExtendedGalileon_q**2&
-                &+4*self%ExtendedGalileon_q*self%ExtendedGalileon_B+self%ExtendedGalileon_q)*(2*self%ExtendedGalileon_q*(3*self%ExtendedGalileon_B+3*self%ExtendedGalileon_q-2)+1)&
-                &+(self%ExtendedGalileon_q+1)*(2*self%ExtendedGalileon_B*(self%ExtendedGalileon_q+1)+self%ExtendedGalileon_q*(2*self%ExtendedGalileon_q+3))*eft_cache%Hdot**2)&
-                &-12*(self%ExtendedGalileon_B-1)*self%ExtendedGalileon_B*self%ExtendedGalileon_q*eft_cache%adotoa**(2*self%ExtendedGalileon_q+3)*((2*self%ExtendedGalileon_q+1)&
-                &*eft_cache%adotoa**2-(self%ExtendedGalileon_q+1)*eft_cache%Hdot))
+        eft_cache%EFTGamma1P  =  (a**(-1 + self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*self%ExtendedGalileon_B*eft_cache%adotoa**(-4 - self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+	&*eft_par_cache%h0_Mpc**(self%ExtendedGalileon_B/self%ExtendedGalileon_q)*Omega_phi0&
+	&*((self%ExtendedGalileon_B + 12*self%ExtendedGalileon_q**2*self%ExtendedGalileon_B)&
+	&*eft_cache%adotoa**4 - 2*(1 + 6*self%ExtendedGalileon_q**2)*self%ExtendedGalileon_B*eft_cache%adotoa**2*eft_cache%Hdot + (2*self%ExtendedGalileon_q + self%ExtendedGalileon_B)&
+	&*eft_cache%Hdot**2 - self%ExtendedGalileon_q*eft_cache%adotoa*eft_cache%Hdotdot))/(4.*self%ExtendedGalileon_q**2)
 
-        eft_cache%EFTGamma2V  = self%ExtendedGalileon_B*(-2**(1/self%S+2))*3**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_B)&
-                &*(a*eft_par_cache%h0_Mpc/eft_cache%adotoa)**((2*(self%ExtendedGalileon_q+1)*(self%ExtendedGalileon_B+self%ExtendedGalileon_q))/self%ExtendedGalileon_q)*Omega_phi0**(1/self%S+2)
-
-        eft_cache%EFTGamma2P  = 2/3*self%S*(self%ExtendedGalileon_B+self%ExtendedGalileon_q)*a**(4*self%ExtendedGalileon_B+2*self%S+4*self%ExtendedGalileon_q+1)*eft_par_cache%h0_Mpc**((&
-                &2*(self%ExtendedGalileon_q+1)*(self%ExtendedGalileon_B+self%ExtendedGalileon_q))/self%ExtendedGalileon_q)*eft_cache%adotoa**(-2*(self%ExtendedGalileon_B&
-                &+self%S+self%ExtendedGalileon_q+2))*(6**(1/self%S)*Omega_phi0**(1/self%S))**(2*self%S+1)*((2*self%ExtendedGalileon_q+1)*eft_cache%adotoa**2-(self%ExtendedGalileon_q+1)*eft_cache%Hdot)
+        eft_cache%EFTGamma2V  = -2*self%ExtendedGalileon_B&
+              &*(a*eft_par_cache%h0_Mpc/eft_cache%adotoa)**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_q)*Omega_phi0
+	      
+        eft_cache%EFTGamma2P  = -2/self%ExtendedGalileon_q*self%ExtendedGalileon_B*(self%ExtendedGalileon_B+self%ExtendedGalileon_q)*a**(self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
+		&*eft_par_cache%h0_Mpc**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_q)&
+		&*eft_cache%adotoa**(-3-(self%ExtendedGalileon_B)/self%ExtendedGalileon_q)*Omega_phi0*(eft_cache%adotoa**2-eft_cache%Hdot)
 		
         eft_cache%EFTGamma3V  = 0._dl
         eft_cache%EFTGamma3P  = 0._dl
@@ -497,15 +479,15 @@ contains
         Omega_phi0 = eft_par_cache%omegav
 
         eft_cache%Hdot = -(eft_cache%adotoa**2*(a**2*eft_par_cache%h0_Mpc**2*(a*Omega_tot_prime&
-                          &-self%ExtendedGalileon_q*Omega_tot)+(self%ExtendedGalileon_q+2)*eft_cache%adotoa**2))
-
-        eft_cache%Hdotdot = eft_cache%adotoa**3/((self%ExtendedGalileon_q+2)*eft_cache%adotoa**2-a**2*eft_par_cache%h0_Mpc**2*self%ExtendedGalileon_q*Omega_tot)**3*(&
-                          &a**2*eft_par_cache%h0_Mpc**2*(self%ExtendedGalileon_q+2)**2*eft_cache%adotoa**4*(a*(5*Omega_tot_prime+a*Omega_tot_primeprime)-6*&
-                          &self%ExtendedGalileon_q*Omega_tot)+a**6*eft_par_cache%h0_Mpc**6*self%ExtendedGalileon_q*Omega_tot*(-a**2*(self%ExtendedGalileon_q+2)*&
-                          &Omega_tot_prime**2-2*self%ExtendedGalileon_q**2*Omega_tot**2+a*self%ExtendedGalileon_q*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))&
-                          &+a**4*eft_par_cache%h0_Mpc**4*self%ExtendedGalileon_q*(self%ExtendedGalileon_q+2)*eft_cache%adotoa**2*(a**2*Omega_tot_prime**2&
-                          &+6*self%ExtendedGalileon_q*Omega_tot**2-2*a*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))+2*(self%ExtendedGalileon_q+2)**3*eft_cache%adotoa**6)
-
+                          &-self%S*Omega_tot)+(self%S+2)*eft_cache%adotoa**2))/(a**2*eft_par_cache%h0_Mpc**2&
+			  &*self%S*Omega_tot-(self%S+2)*eft_cache%adotoa**2)
+        eft_cache%Hdotdot = eft_cache%adotoa**3/((self%S+2)*eft_cache%adotoa**2-a**2*eft_par_cache%h0_Mpc**2*self%S*Omega_tot)**3*(&
+                          &a**2*eft_par_cache%h0_Mpc**2*(self%S+2)**2*eft_cache%adotoa**4*(a*(5*Omega_tot_prime+a*Omega_tot_primeprime)-6*&
+                          &self%S*Omega_tot)+a**6*eft_par_cache%h0_Mpc**6*self%S*Omega_tot*(-a**2*(self%S+2)*&
+                          &Omega_tot_prime**2-2*self%S**2*Omega_tot**2+a*self%S*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))&
+                          &+a**4*eft_par_cache%h0_Mpc**4*self%S*(self%S+2)*eft_cache%adotoa**2*(a**2*Omega_tot_prime**2&
+                          &+6*self%S*Omega_tot**2-2*a*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))+2*(self%S+2)**3*eft_cache%adotoa**6)
+			  
     end subroutine EFTCAMBExtendedGalileonComputeHubbleDer
 
     ! ---------------------------------------------------------------------------------------------
