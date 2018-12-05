@@ -301,20 +301,20 @@ contains
                 return
             end if
 
-            ! aRGR = 0.8
+            aRGR = 0.8
             ! if ( eft_cache%EFT_mu1 < -eft_cache%adotoa**2/a**2 ) then
-            ! ! if ( eft_cache%EFT_mu1 < -eft_cache%adotoa**2/a**2 .and. a>aRGR) then
-            ! ! if ( eft_cache%EFT_mu1 < 0._dl .and. a>aRGR) then
-            !     EFTTestStability = .false.
-            !     if ( input_EFTCAMB%EFTCAMB_feedback_level > 1 ) write(*,'(a,E11.4)') '   Tachyon instability: mu_1 instability. EFT_mu1 = ', eft_cache%EFT_mu1
-            ! end if
-            !
+            if ( eft_cache%EFT_mu1 < -eft_cache%adotoa**2/a**2 .and. a>aRGR) then
+            ! if ( eft_cache%EFT_mu1 < 0._dl .and. a>aRGR) then
+                EFTTestStability = .false.
+                if ( input_EFTCAMB%EFTCAMB_feedback_level > 1 ) write(*,'(a,E11.4)') '   Tachyon instability: mu_1 instability. EFT_mu1 = ', eft_cache%EFT_mu1
+            end if
+
             ! if ( eft_cache%EFT_mu2 < -eft_cache%adotoa**2/a**2 ) then
-            ! ! if ( eft_cache%EFT_mu2 < -eft_cache%adotoa**2/a**2 .and. a>aRGR) then
-            ! !   if ( eft_cache%EFT_mu2 < 0._dl .and. a>aRGR) then
-            !     EFTTestStability = .false.
-            !     if ( input_EFTCAMB%EFTCAMB_feedback_level > 1 ) write(*,'(a,E11.4)') '   Tachyon instability: mu_2 instability. EFT_mu2 = ', eft_cache%EFT_mu2
-            ! end if
+            if ( eft_cache%EFT_mu2 < -eft_cache%adotoa**2/a**2 .and. a>aRGR) then
+            !   if ( eft_cache%EFT_mu2 < 0._dl .and. a>aRGR) then
+                EFTTestStability = .false.
+                if ( input_EFTCAMB%EFTCAMB_feedback_level > 1 ) write(*,'(a,E11.4)') '   Tachyon instability: mu_2 instability. EFT_mu2 = ', eft_cache%EFT_mu2
+            end if
 
             ! 1- Positive gravitational constant:
             if ( 1._dl +eft_cache%EFTOmegaV <= 0 ) then
