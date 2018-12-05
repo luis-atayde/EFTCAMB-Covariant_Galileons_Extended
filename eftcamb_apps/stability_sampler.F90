@@ -64,7 +64,7 @@ program stability_sampler
     real(dl),allocatable :: t1(:)
     integer param_number, iter, nu_i
     logical do_log_sampling_param_1, do_log_sampling_param_2, success, error
-    real(dl) k_max, astart, aend
+    real(dl) k_max, astart, aend, aRGR
 
 #ifdef WRITE_FITS
     character(LEN=Ini_max_string_len) FITSfilename
@@ -544,10 +544,17 @@ program stability_sampler
           iter = iter+1
           t1(1) = param_1_min+i*1._dl/sample_points*(param_1_max-param_1_min)
           t1(2) = param_2_min+j*1._dl/sample_points*(param_2_max-param_2_min)
+          if (abs(t1(1)) <0.02_dl) t1(1) = 0._dl
+          if (abs(t1(2)) <0.02_dl) t1(2) = 0._dl
 
           call P%EFTCAMB%model%init_model_parameters( t1 )
           success = .true.
           call P%EFTCAMB%model%initialize_background( P%eft_par_cache, P%EFTCAMB%EFTCAMB_feedback_level, success )
+          ! !SP: compute RGR time
+          ! call CAMBParams_Set(P)
+          ! call EFTCAMBReturnToGR( P%EFTCAMB%model, P%eft_par_cache, 1.d-8, aRGR )
+          ! if ( aRGR>astart ) astart = aRGR
+          ! print *, 'RGR = ----- = ', astart
           call EFTCAMB_Stability_Check( success, P%EFTCAMB, P%eft_par_cache, astart, aend, k_max )
 
           if (success) then

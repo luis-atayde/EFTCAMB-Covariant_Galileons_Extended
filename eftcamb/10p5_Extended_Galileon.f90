@@ -343,7 +343,19 @@ contains
 	&*((3*self%ExtendedGalileon_q + self%ExtendedGalileon_B)*eft_cache%adotoa**4 - (3*self%ExtendedGalileon_q + 2*self%ExtendedGalileon_B)*eft_cache%adotoa**2&
 	&*eft_cache%Hdot + (2*self%ExtendedGalileon_q + self%ExtendedGalileon_B)*eft_cache%Hdot**2 - self%ExtendedGalileon_q*eft_cache%adotoa&
 	&*eft_cache%Hdotdot))/self%ExtendedGalileon_q**2)
-	
+
+
+
+      eft_cache%EFTcdotdot =(a**(2 + self%S)*self%S*eft_cache%adotoa**(-4 - self%S)*eft_par_cache%h0_Mpc**(2 &
+            &+ self%S)*Omega_phi0*(-(self%ExtendedGalileon_q**2*self%S**2*eft_cache%adotoa**6) + self%ExtendedGalileon_q*self%S*(&
+            &-self%ExtendedGalileon_q + 3*self%ExtendedGalileon_q*self%S)*eft_cache%adotoa**4*eft_cache%Hdot &
+            &+(6*self%ExtendedGalileon_q**2 + 5*self%ExtendedGalileon_q**2*self%S + self%ExtendedGalileon_q**2*self%S**2)&
+            &*eft_cache%Hdot**3 +eft_cache%adotoa**2*(self%ExtendedGalileon_q**2*eft_cache%Hddd &
+            &- self%ExtendedGalileon_q*self%S*(4*self%ExtendedGalileon_q + 3*self%ExtendedGalileon_q*self%S)*eft_cache%Hdot**2) &
+            &+ 3*self%ExtendedGalileon_q**2*self%S*eft_cache%adotoa**3*eft_cache%Hdotdot -3*self%ExtendedGalileon_q*(&
+            &2*self%ExtendedGalileon_q + self%ExtendedGalileon_q*self%S)*eft_cache%adotoa*eft_cache%Hdot*eft_cache%Hdotdot))/(&
+            &2.*self%ExtendedGalileon_q**2)
+
     end subroutine EFTCAMBExtendedGalileonBackgroundEFTFunctions
 
     ! ---------------------------------------------------------------------------------------------
@@ -379,13 +391,32 @@ contains
 
         eft_cache%EFTGamma2V  = -2*self%ExtendedGalileon_B&
               &*(a*eft_par_cache%h0_Mpc/eft_cache%adotoa)**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_q)*Omega_phi0
-	      
+
         eft_cache%EFTGamma2P  = -2/self%ExtendedGalileon_q*self%ExtendedGalileon_B*(self%ExtendedGalileon_B+self%ExtendedGalileon_q)*a**(self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
 		&*eft_par_cache%h0_Mpc**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_q)&
 		&*eft_cache%adotoa**(-3-(self%ExtendedGalileon_B)/self%ExtendedGalileon_q)*Omega_phi0*(eft_cache%adotoa**2-eft_cache%Hdot)
-		
+
+
+        eft_cache%EFTGamma1PP = (a**(-2 + self%S)*self%S*eft_cache%adotoa**(-6 - self%S)*eft_par_cache%h0_Mpc**self%S*Omega_phi0*&
+              &(self%ExtendedGalileon_q*(-1 - 12*self%ExtendedGalileon_q**2)*self%S*(self%ExtendedGalileon_q - self%ExtendedGalileon_q*self%S)*&
+              &eft_cache%adotoa**6 + self%ExtendedGalileon_q*self%S*(2*self%ExtendedGalileon_q + 12*self%ExtendedGalileon_q**3 - 3*self%ExtendedGalileon_q&
+              &*self%S - 24*self%ExtendedGalileon_q**3*self%S)*eft_cache%adotoa**4*eft_cache%Hdot - (8*self%ExtendedGalileon_q**2 +&
+              & 6*self%ExtendedGalileon_q**2*self%S + self%ExtendedGalileon_q**2*self%S**2)*eft_cache%Hdot**3 + eft_cache%adotoa**2*(&
+              &-(self%ExtendedGalileon_q**2*eft_cache%Hddd) + (5*self%ExtendedGalileon_q**2*self%S + 24*self%ExtendedGalileon_q**4*self%S &
+              &+ 3*self%ExtendedGalileon_q**2*self%S**2 + 2*self%ExtendedGalileon_q**2*(-1 + 6*self%ExtendedGalileon_q**2*self%S**2))*eft_cache%Hdot**2) &
+              &+ self%ExtendedGalileon_q*(self%ExtendedGalileon_q - 3*self%ExtendedGalileon_q*self%S - 12*self%ExtendedGalileon_q**3*self%S)&
+              &*eft_cache%adotoa**3*eft_cache%Hdotdot + self%ExtendedGalileon_q*(7*self%ExtendedGalileon_q + 3*self%ExtendedGalileon_q*self%S)&
+              &*eft_cache%adotoa*eft_cache%Hdot*eft_cache%Hdotdot))/(4.*self%ExtendedGalileon_q**2)
+
+        eft_cache%EFTGamma2PP = (2*a**(-1 + self%S)*self%S*(self%ExtendedGalileon_q + self%ExtendedGalileon_q*self%S)*eft_cache%adotoa**(&
+              &-5 - self%S)*eft_par_cache%h0_Mpc**((self%ExtendedGalileon_q + self%ExtendedGalileon_q*self%S)/self%ExtendedGalileon_q)*&
+              &Omega_phi0*(-(self%ExtendedGalileon_q*self%S*eft_cache%adotoa**4) + (self%ExtendedGalileon_q + 2*self%ExtendedGalileon_q*self%S)&
+              &*eft_cache%adotoa**2*eft_cache%Hdot - (3*self%ExtendedGalileon_q + self%ExtendedGalileon_q*self%S)*eft_cache%Hdot**2 &
+              &+ self%ExtendedGalileon_q*eft_cache%adotoa*eft_cache%Hdotdot))/self%ExtendedGalileon_q
+
         eft_cache%EFTGamma3V  = 0._dl
         eft_cache%EFTGamma3P  = 0._dl
+        eft_cache%EFTGamma3PP  = 0._dl
         eft_cache%EFTGamma4V  = 0._dl
         eft_cache%EFTGamma4P  = 0._dl
         eft_cache%EFTGamma4PP = 0._dl
@@ -409,7 +440,7 @@ contains
         type(EFTCAMB_timestep_cache ), intent(inout) :: eft_cache     !< the EFTCAMB timestep cache that contains all the physical values.
 
         real(dl)    :: temp, a2, Omega_tot
-        integer     :: nu_i , counter
+        integer     :: counter
 	      real(dl)::limit1, limit2, flimit1, flimit2, dmean, soluction, fsoluction, bolean !soluction=H/H0
         real(dl) :: Omega_phi0
 	      real(dl) :: ATemp1, ATemp2, BTemp1, BTemp2, HorizAsyntB
@@ -418,9 +449,6 @@ contains
         a2 = a*a
 
         Omega_tot = ( eft_par_cache%omegac +eft_par_cache%omegab )*a**(-3) + ( eft_par_cache%omegag +eft_par_cache%omegar)*a**(-4) +eft_cache%grhonu_tot/(3._dl*eft_par_cache%h0_Mpc**2*a2)
-
-
-
 
 		    limit1=0
 		    if (limit1.lt.0) limit1=0
@@ -463,8 +491,7 @@ contains
         type(EFTCAMB_parameter_cache), intent(inout) :: eft_par_cache !< the EFTCAMB parameter cache that contains all the physical parameters.
         type(EFTCAMB_timestep_cache ), intent(inout) :: eft_cache     !< the EFTCAMB timestep cache that contains all the physical values.
 
-        real(dl)    :: temp, a2, Omega_tot, Omega_tot_prime, Omega_tot_primeprime, Omega_phi0
-        integer     :: nu_i
+        real(dl)    :: temp, a2, Omega_tot, Omega_tot_prime, Omega_tot_primeprime,Omega_tot_primeprimeprime,  Omega_phi0, gpinudotdot_tot
 
         a2 = a*a
 
@@ -478,6 +505,12 @@ contains
 
         Omega_phi0 = eft_par_cache%omegav
 
+        gpinudotdot_tot = 0._dl
+
+        if (.not. eft_par_cache%omegan==0._dl) then
+          call MpiStop('massive neutrinos not compatible with tachyon stability check')
+        end if
+
         eft_cache%Hdot = -(eft_cache%adotoa**2*(a**2*eft_par_cache%h0_Mpc**2*(a*Omega_tot_prime&
                           &-self%S*Omega_tot)+(self%S+2)*eft_cache%adotoa**2))/(a**2*eft_par_cache%h0_Mpc**2&
 			  &*self%S*Omega_tot-(self%S+2)*eft_cache%adotoa**2)
@@ -487,7 +520,27 @@ contains
                           &Omega_tot_prime**2-2*self%S**2*Omega_tot**2+a*self%S*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))&
                           &+a**4*eft_par_cache%h0_Mpc**4*self%S*(self%S+2)*eft_cache%adotoa**2*(a**2*Omega_tot_prime**2&
                           &+6*self%S*Omega_tot**2-2*a*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))+2*(self%S+2)**3*eft_cache%adotoa**6)
-			  
+
+      Omega_tot_primeprimeprime = -60._dl*( eft_par_cache%omegac +eft_par_cache%omegab )*a**(-6) -120._dl*( eft_par_cache%omegag +eft_par_cache%omegar)*a**(-7)&
+                        & +(-20._dl*(eft_cache%grhonu_tot+eft_cache%gpinu_tot) + (6._dl/eft_cache%adotoa +eft_cache%Hdot/eft_cache%adotoa**3)*eft_cache%gpinudot_tot  -1._dl/eft_cache%adotoa**2*gpinudotdot_tot)/(eft_par_cache%h0_Mpc**2*a**5)
+
+      eft_cache%Hddd = (eft_cache%adotoa**4*(6*(2 + self%S)**5*eft_cache%adotoa**10 +a**2*(2 + self%S)**4*eft_cache%adotoa**8*&
+            &eft_par_cache%h0_Mpc**2*(-30*self%S*Omega_tot +a*(a**2*Omega_tot_primeprimeprime +26*Omega_tot_prime &
+            &+10*a*Omega_tot_primeprime)) -a**6*self%S*(2 + self%S)**2*eft_cache%adotoa**4*eft_par_cache%h0_Mpc**6*(60*self%S&
+            &**2*Omega_tot**3 +a**3*(3 - 2*self%S)*Omega_tot_prime**3 -6*a*self%S*Omega_tot**2*(a**2*Omega_tot_primeprimeprime &
+            &+26*Omega_tot_prime +10*a*Omega_tot_primeprime) +a**2*Omega_tot*Omega_tot_prime*(5*(7 + 6*self%S)*Omega_tot_prime &
+            &+9*a*(1 + self%S)*Omega_tot_primeprime)) +a**4*(2 + self%S)**3*eft_cache%adotoa**6*eft_par_cache%h0_Mpc**4*&
+            &(60*self%S**2*Omega_tot**2 -4*a*self%S*Omega_tot*(a**2*Omega_tot_primeprimeprime +26*Omega_tot_prime &
+            &+10*a*Omega_tot_primeprime) +a**2*Omega_tot_prime*(5*(1 + 2*self%S)*Omega_tot_prime +a*(1 &
+            &+ 3*self%S)*Omega_tot_primeprime)) +a**8*self%S*(2 + self%S)*eft_cache%adotoa**2*eft_par_cache%h0_Mpc**8*Omega_tot*(&
+            &30*self%S**3*Omega_tot**3 -2*a**3*(-3 + 2*self%S + 2*self%S**2)*Omega_tot_prime**3 -4*a*self%S**2*Omega_tot**2*(a**2&
+            &*Omega_tot_primeprimeprime +26*Omega_tot_prime +10*a*Omega_tot_primeprime) +a**2*self%S*Omega_tot*Omega_tot_prime*(5*(11&
+            & + 6*self%S)*Omega_tot_prime +3*a*(5 + 3*self%S)*Omega_tot_primeprime)) +a**10*self%S**2*eft_par_cache%h0_Mpc**10*Omega_tot**2*(&
+            &-6*self%S**3*Omega_tot**3 +a**3*(6 + 7*self%S + 2*self%S**2)*Omega_tot_prime**3 +a*self%S**2*Omega_tot**2*(&
+            &a**2*Omega_tot_primeprimeprime +26*Omega_tot_prime +10*a*Omega_tot_primeprime) -a**2*self%S*Omega_tot*Omega_tot_prime*(&
+            &5*(5 + 2*self%S)*Omega_tot_prime +a*(7 + 3*self%S)*Omega_tot_primeprime))))/((2 + self%S)*eft_cache%adotoa**2 &
+            &- a**2*self%S*eft_par_cache%h0_Mpc**2*Omega_tot)**5
+
     end subroutine EFTCAMBExtendedGalileonComputeHubbleDer
 
     ! ---------------------------------------------------------------------------------------------
@@ -503,7 +556,16 @@ contains
 
         logical :: EFTCAMBExtendedGalileonAdditionalModelStability       !< the return value of the stability computation. True if the model specific stability criteria are met, false otherwise.
 
+        real(dl) :: factor
+
         EFTCAMBExtendedGalileonAdditionalModelStability = .True.
+
+        !imposing strong coupling constraint
+        factor = (2._dl*self%ExtendedGalileon_q*self%S -1._dl)/(2._dl*self%ExtendedGalileon_q*(1._dl +self%S))
+
+        if (factor > 0._dl ) EFTCAMBExtendedGalileonAdditionalModelStability = .false.
+
+        return
 
     end function EFTCAMBExtendedGalileonAdditionalModelStability
 

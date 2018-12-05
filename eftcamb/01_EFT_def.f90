@@ -40,7 +40,7 @@ module EFT_def
         !!    This number is used as a lower bound and is refined if the teory is very close to GR
         !!    by the EFTreturntoGR module.
 
-    real(dl), parameter :: EFTtoGR = 1.d-8 !< Return to GR flag:
+    real(dl), parameter :: EFTtoGR = 1.d-1 !< Return to GR flag:
         !!    This is the threshold at which a theory is considered to be exactly GR.
 
     real(dl), parameter :: EFTstabilitycutoff = 1.d-10 !< Smallest scale factor that the code checks for stability.
