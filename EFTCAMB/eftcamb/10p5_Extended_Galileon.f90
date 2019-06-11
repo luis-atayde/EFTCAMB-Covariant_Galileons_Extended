@@ -181,17 +181,17 @@ contains
                                                        !! of the parameters.
 
         ! print general model informations:
-       if (self%ExtendedGalileon_B /= 0._dl) then
+       !if (self%ExtendedGalileon_B /= 0._dl) then
 
-         write(*,*)
-         write(*,'(a,a)')       '   Model              =  ', self%name
-         write(*,'(a,I3)')      '   Number of params   ='  , self%parameter_number
+        ! write(*,*)
+        ! write(*,'(a,a)')       '   Model              =  ', self%name
+        ! write(*,'(a,I3)')      '   Number of params   ='  , self%parameter_number
          ! write(*,'(a,F12.6)')   '                xi    ='  , self%csi
-         write(*,'(a,F12.6)')   '                B    ='  , self%ExtendedGalileon_B
-         write(*,'(a,F12.6)')   '                q    ='  , self%ExtendedGalileon_q
-         write(*,'(a,F12.6)')   '                S    ='  , self%S
+        ! write(*,'(a,F12.6)')   '                B    ='  , self%ExtendedGalileon_B
+        ! write(*,'(a,F12.6)')   '                q    ='  , self%ExtendedGalileon_q
+        ! write(*,'(a,F12.6)')   '                S    ='  , self%S
 
-       end if
+       !end if
 
     end subroutine EFTCAMBExtendedGalileonFeedback
 
@@ -213,11 +213,11 @@ contains
         end if
         ! return the appropriate name:
         if ( i==1 ) then
-            name = 'S'
+            name = 'ExtendedGalileon_S'
             return
         end if
         if ( i==2 ) then
-            name = 'q'
+            name = 'ExtendedGalileon_q'
             return
         end if
         if ( i==0 ) then
@@ -420,6 +420,12 @@ contains
         Omega_tot = ( eft_par_cache%omegac +eft_par_cache%omegab )*a**(-3) + ( eft_par_cache%omegag +eft_par_cache%omegar)*a**(-4) +eft_cache%grhonu_tot/(3._dl*eft_par_cache%h0_Mpc**2*a2)
 
 
+!SP:Debug
+if (a<0.2_dl)then
+  temp = 0.5_dl*a2*(eft_par_cache%h0_Mpc)**2*( Omega_tot + sqrt( Omega_tot**2 +4._dl*eft_par_cache%omegav ) )
+  eft_cache%adotoa =sqrt( temp )
+  return
+end if
 
 
 		    limit1=0
@@ -504,6 +510,14 @@ contains
         logical :: EFTCAMBExtendedGalileonAdditionalModelStability       !< the return value of the stability computation. True if the model specific stability criteria are met, false otherwise.
 
         EFTCAMBExtendedGalileonAdditionalModelStability = .True.
+
+	!mass condition
+	if ( (self%S+0.02)*self%ExtendedGalileon_q<.5 ) EFTCAMBExtendedGalileonAdditionalModelStability = .false.
+	
+	!Strong Coupling
+	if ( (self%ExtendedGalileon_q*self%S -1.)/(2.*self%ExtendedGalileon_q*(1. +self%S/2.))>0.) EFTCAMBExtendedGalileonAdditionalModelStability = .false.
+	
+	return
 
     end function EFTCAMBExtendedGalileonAdditionalModelStability
 
