@@ -198,7 +198,7 @@
                     ! print some optional feedback and then return
                     if ( CMB%EFTCAMB_parameters%EFTCAMB_feedback_level > 1 ) then
                         write(*,'(a)') '***************************************************************'
-                        write(*,'(a)') ' EFTCAMB: theory unstable'
+                        write(*,'(a)') ' EFTCAMB: theory unstable,0'
                         write(*,'(a)') '***************************************************************'
                     end if
                     return
@@ -222,7 +222,7 @@
                             ! print some optional feedback and then return
                             if ( CMB%EFTCAMB_parameters%EFTCAMB_feedback_level > 1 ) then
                                 write(*,'(a)') '***************************************************************'
-                                write(*,'(a)') ' EFTCAMB: theory unstable'
+                                write(*,'(a)') ' EFTCAMB: theory unstable,1'
                                 write(*,'(a)') '***************************************************************'
                             end if
                             return
