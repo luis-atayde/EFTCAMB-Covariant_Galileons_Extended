@@ -31,7 +31,6 @@ module EFTCAMB_stability
     use EFTCAMB_abstract_model_full
     use EFTCAMB_abstract_model_designer
     use EFTCAMB_main
-    use EFTCAMB_ReturnToGR
 
     implicit none
 
@@ -166,7 +165,7 @@ contains
         logical  :: EFT_HaveNan_parameter, EFT_HaveNan_timestep
         real(dl) :: EFT_instability_rate, tempk, temp1, temp2, temp3, temp4, temp5
         integer  :: ind_max, ind
-        real(dl) :: dtauda, test_dtauda, aRGR
+        real(dl) :: dtauda, test_dtauda
         external :: dtauda
 
         ! Stability check initialization
@@ -177,10 +176,6 @@ contains
         call EFTStabilityComputation( a, input_EFTCAMB%model, params_cache, eft_cache )
         ! protect against k_max too small:
         if ( k_max < 0.1_dl ) k_max = 0.1_dl
-
-        !SP: compute RGR time
-        ! call CAMBParams_Set(P)
-        ! call EFTCAMBReturnToGR( input_EFTCAMB%model, params_cache, 1.d-8, aRGR )
 
         ! check stability of the theory:
 
@@ -299,21 +294,6 @@ contains
                 write(*,'(a)') '      If you want to run this model disable EFT_physical_stability.'
                 EFTTestStability = .false.
                 return
-            end if
-
-            aRGR = 0.8
-            ! if ( eft_cache%EFT_mu1 < -eft_cache%adotoa**2/a**2 ) then
-            if ( eft_cache%EFT_mu1 < -eft_cache%adotoa**2/a**2 .and. a>aRGR) then
-            ! if ( eft_cache%EFT_mu1 < 0._dl .and. a>aRGR) then
-                EFTTestStability = .false.
-                if ( input_EFTCAMB%EFTCAMB_feedback_level > 1 ) write(*,'(a,E11.4)') '   Tachyon instability: mu_1 instability. EFT_mu1 = ', eft_cache%EFT_mu1
-            end if
-
-            ! if ( eft_cache%EFT_mu2 < -eft_cache%adotoa**2/a**2 ) then
-            if ( eft_cache%EFT_mu2 < -eft_cache%adotoa**2/a**2 .and. a>aRGR) then
-            !   if ( eft_cache%EFT_mu2 < 0._dl .and. a>aRGR) then
-                EFTTestStability = .false.
-                if ( input_EFTCAMB%EFTCAMB_feedback_level > 1 ) write(*,'(a,E11.4)') '   Tachyon instability: mu_2 instability. EFT_mu2 = ', eft_cache%EFT_mu2
             end if
 
             ! 1- Positive gravitational constant:

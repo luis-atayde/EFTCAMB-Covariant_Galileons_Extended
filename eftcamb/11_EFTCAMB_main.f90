@@ -117,7 +117,7 @@ contains
         ! read the stability flags:
         self%EFT_mathematical_stability = Ini_Read_Logical_File( Ini, 'EFT_mathematical_stability', .true. )
         self%EFT_physical_stability     = Ini_Read_Logical_File( Ini, 'EFT_physical_stability'    , .true. )
-        self%EFT_additional_priors      = Ini_Read_Logical_File( Ini, 'EFT_additional_priors'     , .true. )
+        self%EFT_additional_priors      = Ini_Read_Logical_File( Ini, 'EFTAdditionalPriors'     , .true. )
 
         ! EFTCAMB working stuff:
         self%EFTCAMB_feedback_level     = Ini_Read_Int_File( Ini, 'feedback_level', 1 )
