@@ -313,6 +313,7 @@ contains
         else if (eft_cache%adotoa==0._dl) then
             call self%compute_adotoa( a, eft_par_cache, eft_cache )
             call self%compute_H_derivs( a, eft_par_cache, eft_cache )
+            if (eft_cache%adotoa == 0._dl) return
         end if
 
         ! compute the background EFT functions:
@@ -417,16 +418,17 @@ contains
         Omega_phi0 = eft_par_cache%omegav
         a2 = a*a
 
-        Omega_tot = ( eft_par_cache%omegac +eft_par_cache%omegab )*a**(-3) + ( eft_par_cache%omegag +eft_par_cache%omegar)*a**(-4) +eft_cache%grhonu_tot/(3._dl*eft_par_cache%h0_Mpc**2*a2)
-
+        Omega_tot = ( eft_par_cache%omegac +eft_par_cache%omegab )*a**(-3.) + ( eft_par_cache%omegag +eft_par_cache%omegar)*a**(-4.) +eft_cache%grhonu_tot/(3._dl*eft_par_cache%h0_Mpc**2.*a2)
 
 !SP:Debug
 if (a<0.2_dl)then
-  temp = 0.5_dl*a2*(eft_par_cache%h0_Mpc)**2*( Omega_tot + sqrt( Omega_tot**2 +4._dl*eft_par_cache%omegav ) )
-  eft_cache%adotoa =sqrt( temp )
+  ! temp = 0.5_dl*a2*(eft_par_cache%h0_Mpc)**2.*( Omega_tot + sqrt( Omega_tot**2. +4._dl*eft_par_cache%omegav ) )
+  ! eft_cache%adotoa =sqrt( temp )
+  ! if (eft_cache%grhom_t == 0._dl) call self%compute_background_EFT_functions(a, eft_par_cache, eft_cache )
+  temp = 1.0_dl/(1.0_dl + eft_cache%EFTOmegaV+ a*eft_cache%EFTOmegaP)*(eft_cache%grhom_t + 2.0_dl*eft_cache%EFTc -eft_cache%EFTLambda )/3.0_dl
+  eft_cache%adotoa = sqrt(temp)
   return
 end if
-
 
 		    limit1=0
 		    if (limit1.lt.0) limit1=0
@@ -464,7 +466,7 @@ end if
 
         implicit none
 
-        class(EFTCAMB_Extended_Galileon)                :: self          !< the base class
+        class(EFTCAMB_Extended_Galileon)             :: self          !< the base class
         real(dl), intent(in)                         :: a             !< the input scale factor
         type(EFTCAMB_parameter_cache), intent(inout) :: eft_par_cache !< the EFTCAMB parameter cache that contains all the physical parameters.
         type(EFTCAMB_timestep_cache ), intent(inout) :: eft_cache     !< the EFTCAMB timestep cache that contains all the physical values.
@@ -473,6 +475,13 @@ end if
         integer     :: nu_i
 
         a2 = a*a
+
+        if (a == 0._dl) return
+        if (eft_cache%adotoa == 0._dl) then
+          call self%compute_adotoa( a, eft_par_cache, eft_cache )
+          ! print*, "here = ", eft_cache%adotoa, a
+          if (eft_cache%adotoa == 0._dl) return
+        end if
 
         Omega_tot = ( eft_par_cache%omegac +eft_par_cache%omegab )*a**(-3) + ( eft_par_cache%omegag +eft_par_cache%omegar)*a**(-4) +eft_cache%grhonu_tot/(3._dl*eft_par_cache%h0_Mpc**2*a2)
 
