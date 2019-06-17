@@ -181,17 +181,17 @@ contains
                                                        !! of the parameters.
 
         ! print general model informations:
-       !if (self%ExtendedGalileon_B /= 0._dl) then
+       if (self%ExtendedGalileon_B /= 0._dl) then
 
-        ! write(*,*)
-        ! write(*,'(a,a)')       '   Model              =  ', self%name
-        ! write(*,'(a,I3)')      '   Number of params   ='  , self%parameter_number
-         ! write(*,'(a,F12.6)')   '                xi    ='  , self%csi
-        ! write(*,'(a,F12.6)')   '                B    ='  , self%ExtendedGalileon_B
-        ! write(*,'(a,F12.6)')   '                q    ='  , self%ExtendedGalileon_q
-        ! write(*,'(a,F12.6)')   '                S    ='  , self%S
+        write(*,*)
+        write(*,'(a,a)')       '   Model              =  ', self%name
+        write(*,'(a,I3)')      '   Number of params   ='  , self%parameter_number
+         write(*,'(a,F12.6)')   '                xi    ='  , self%csi
+        write(*,'(a,F12.6)')   '                B    ='  , self%ExtendedGalileon_B
+        write(*,'(a,F12.6)')   '                q    ='  , self%ExtendedGalileon_q
+        write(*,'(a,F12.6)')   '                S    ='  , self%S
 
-       !end if
+       end if
 
     end subroutine EFTCAMBExtendedGalileonFeedback
 
@@ -343,7 +343,7 @@ contains
 	&*((3*self%ExtendedGalileon_q + self%ExtendedGalileon_B)*eft_cache%adotoa**4 - (3*self%ExtendedGalileon_q + 2*self%ExtendedGalileon_B)*eft_cache%adotoa**2&
 	&*eft_cache%Hdot + (2*self%ExtendedGalileon_q + self%ExtendedGalileon_B)*eft_cache%Hdot**2 - self%ExtendedGalileon_q*eft_cache%adotoa&
 	&*eft_cache%Hdotdot))/self%ExtendedGalileon_q**2)
-	
+
     end subroutine EFTCAMBExtendedGalileonBackgroundEFTFunctions
 
     ! ---------------------------------------------------------------------------------------------
@@ -379,11 +379,11 @@ contains
 
         eft_cache%EFTGamma2V  = -2*self%ExtendedGalileon_B&
               &*(a*eft_par_cache%h0_Mpc/eft_cache%adotoa)**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_q)*Omega_phi0
-	      
+
         eft_cache%EFTGamma2P  = -2/self%ExtendedGalileon_q*self%ExtendedGalileon_B*(self%ExtendedGalileon_B+self%ExtendedGalileon_q)*a**(self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
 		&*eft_par_cache%h0_Mpc**((self%ExtendedGalileon_B+self%ExtendedGalileon_q)/self%ExtendedGalileon_q)&
 		&*eft_cache%adotoa**(-3-(self%ExtendedGalileon_B)/self%ExtendedGalileon_q)*Omega_phi0*(eft_cache%adotoa**2-eft_cache%Hdot)
-		
+
         eft_cache%EFTGamma3V  = 0._dl
         eft_cache%EFTGamma3P  = 0._dl
         eft_cache%EFTGamma4V  = 0._dl
@@ -493,7 +493,7 @@ end if
                           &Omega_tot_prime**2-2*self%S**2*Omega_tot**2+a*self%S*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))&
                           &+a**4*eft_par_cache%h0_Mpc**4*self%S*(self%S+2)*eft_cache%adotoa**2*(a**2*Omega_tot_prime**2&
                           &+6*self%S*Omega_tot**2-2*a*Omega_tot*(5*Omega_tot_prime+a*Omega_tot_primeprime))+2*(self%S+2)**3*eft_cache%adotoa**6)
-			  
+
     end subroutine EFTCAMBExtendedGalileonComputeHubbleDer
 
     ! ---------------------------------------------------------------------------------------------
@@ -513,10 +513,10 @@ end if
 
 	!mass condition
 	if ( (self%S+0.02)*self%ExtendedGalileon_q<.5 ) EFTCAMBExtendedGalileonAdditionalModelStability = .false.
-	
+
 	!Strong Coupling
 	if ( (self%ExtendedGalileon_q*self%S -1.)/(2.*self%ExtendedGalileon_q*(1. +self%S/2.))>0.) EFTCAMBExtendedGalileonAdditionalModelStability = .false.
-	
+
 	return
 
     end function EFTCAMBExtendedGalileonAdditionalModelStability
