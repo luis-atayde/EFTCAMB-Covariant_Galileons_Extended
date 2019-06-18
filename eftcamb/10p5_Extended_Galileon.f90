@@ -313,9 +313,8 @@ contains
         else if (eft_cache%adotoa==0._dl) then
             call self%compute_adotoa( a, eft_par_cache, eft_cache )
             call self%compute_H_derivs( a, eft_par_cache, eft_cache )
-            if (eft_cache%adotoa == 0._dl) return
         end if
-
+if (eft_cache%adotoa <= 0._dl .or. a <= 0._dl) return
         ! compute the background EFT functions:
         eft_cache%EFTOmegaV    = 0._dl
         eft_cache%EFTOmegaP    = 0._dl
@@ -364,6 +363,7 @@ contains
         a2 = a*a
 
         if(a*eft_cache%adotoa==0._dl) return
+        if (eft_cache%adotoa <= 0._dl .or. a <= 0._dl) return
 
         ! compute the second order EFT functions:
         eft_cache%EFTGamma1V  = (a**(self%ExtendedGalileon_B/self%ExtendedGalileon_q)&
