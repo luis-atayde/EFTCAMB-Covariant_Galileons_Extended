@@ -1624,7 +1624,7 @@ contains
             end if
 
             ! dump the cache to file:
-            if (CP%EFTCAMB%EFTflag/=0 .and. EV%EFTCAMBactive) then
+            if (CP%EFTCAMB%EFTflag/=0) then
                 call EV%eft_cache%dump_cache_files()
             end if
 
