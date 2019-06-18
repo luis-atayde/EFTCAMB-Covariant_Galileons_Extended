@@ -1604,6 +1604,7 @@ contains
         if ( DebugEFTCAMB ) then
 
             ! compute other things and save them in cache:
+            call CP%EFTCAMB%model%compute_Einstein_Factors( a, CP%eft_par_cache , EV%eft_cache )
             EV%eft_cache%clxc          = clxc
             EV%eft_cache%clxb          = clxb
             EV%eft_cache%vb            = vb
